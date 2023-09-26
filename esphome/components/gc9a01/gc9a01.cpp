@@ -197,9 +197,7 @@ void HOT GC9A01::senddata_(const uint8_t *data_bytes, uint8_t num_data_bytes) {
   this->dc_pin_->digital_write(true);  // pull DC high to indicate data
   this->cs_->digital_write(false);
   this->enable();
-  for (uint8_t i = 0; i < num_data_bytes; i++) {
-    this->write_byte(progmem_read_byte(data_bytes++));  // write byte - SPI library
-  }
+  this->write_array(data_bytes, num_data_bytes);
   this->cs_->digital_write(true);
   this->disable();
 }
